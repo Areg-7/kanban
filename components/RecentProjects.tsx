@@ -4,7 +4,6 @@ import { FaLocationArrow } from 'react-icons/fa6'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 import Title from './ui/BubbleText'
 import { PinContainer } from './ui/Pin'
-import Image from 'next/image'
 
 const RecentProjects = () => {
 	return (
@@ -30,10 +29,10 @@ const RecentProjects = () => {
 											// style={{ backgroundColor: '#13162D' }}
 										>
 											<div className='blur-sm'>
-												<Image width={50} height={50} src='/bg.png' alt='bgimg' />
+												<img src='/bg.png' alt='bgimg' />
 											</div>
 										</div>
-										<Image width={50} height={50} src={item.img} alt='cover' className='z-10 absolute' />
+										<img src={item.img} alt='cover' className='z-10 absolute' />
 									</div>
 
 									<h1 className='font-bold lg:text-2xl md:text-xl text-base line-clamp-1'>
@@ -60,7 +59,7 @@ const RecentProjects = () => {
 														transform: `translateX(-${5 * index + 2}px)`,
 													}}
 												>
-													<Image width={50} height={50} src={icon} alt='icon5' className='p-2' />
+													<img src={icon} alt='icon5' className='p-2' />
 												</div>
 											))}
 										</div>
