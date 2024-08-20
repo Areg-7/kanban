@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.scss'
 import { ThemeProvider } from './provider'
-import CustomCursor from '@/components/CustomCursor'
+// import CustomCursor from '@/components/CustomCursor'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,7 +25,7 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<CustomCursor />
+					{/* <CustomCursor /> */}
 					{children}
 				</ThemeProvider>
 			</body>
