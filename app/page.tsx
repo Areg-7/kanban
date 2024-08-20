@@ -3,7 +3,7 @@ import BasicSkills from '@/components/BasicSkills'
 import Clients from '@/components/Clients'
 import Hero from '@/components/Hero'
 // import RecentProjects from '@/components/RecentProjects'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 import { FloatingNav } from '@/components/ui/FloatingNav'
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 				<BasicSkills />
 				{/* <RecentProjects /> */}
         <Clients />
-				<Footer />
+				{/* <Footer /> */}
 			</div>
 		</main>
 	)
