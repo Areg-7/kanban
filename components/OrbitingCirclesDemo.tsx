@@ -1,7 +1,6 @@
 'use client'
 import OrbitingCircles from '@/components/ui/orbiting-circles'
 import { AnimatePresence, motion } from 'framer-motion'
-// import {&apos} from 'react/no-unescaped-entities'
 import { useState } from 'react'
 import { FiCheckSquare, FiX } from 'react-icons/fi'
 import { HoverBorderGradient } from './ui/hover-border-gradient'
@@ -34,9 +33,9 @@ export function OrbitingCirclesDemo() {
 					<HoverBorderGradient className='p-2 px-3 hover-effect'>
 						<li
 							className='relative overflow-hidden block text-center grow p-0 text-indigo-300'
-							data-hover="Let's get in touch"
+							data-hover="Let&apos;s get in touch"
 						>
-							<span className='block'>Let's get in touch</span>
+							<span className='block'>Let&apos;s get in touch</span>
 						</li>
 					</HoverBorderGradient>
 				</Link>
