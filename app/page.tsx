@@ -1,9 +1,9 @@
 import { BackgroundBeams } from '@/components/BackgroundBeams'
 import BasicSkills from '@/components/BasicSkills'
 import Clients from '@/components/Clients'
+import Hero from '@/components/Hero'
 // import RecentProjects from '@/components/RecentProjects'
 // import Footer from '@/components/Footer'
-// import Hero from '@/components/Hero'
 import { FloatingNav } from '@/components/ui/FloatingNav'
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
 			<div className='max-w-7xl w-full'>
 				<BackgroundBeams />
 				<FloatingNav />
-				{/* <Hero /> */}
+				<Hero />
 				<BasicSkills />
 				{/* <RecentProjects /> */}
         <Clients />
