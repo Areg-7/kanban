@@ -34,7 +34,7 @@ export function OrbitingCirclesDemo() {
 					<HoverBorderGradient className='p-2 px-3 hover-effect'>
 						<li
 							className='relative overflow-hidden block text-center grow p-0 text-indigo-300'
-							data-hover="Let's get in touch"
+							data-hover="Let is get in touch"
 						>
 							<span className='block'>Let is get in touch</span>
 						</li>
