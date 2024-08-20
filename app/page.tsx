@@ -1,7 +1,8 @@
-import { CustomKanban } from '@/components/CustomKanban'
+// import { CustomKanban } from '@/components/CustomKanban'
 
 export default function Home() {
   return (
-    <CustomKanban />
+    // <CustomKanban />
+    <p>Hello</p> 
   );
 }
