@@ -1,6 +1,7 @@
 import { BackgroundBeams } from '@/components/BackgroundBeams'
 import BasicSkills from '@/components/BasicSkills'
-import RecentProjects from '@/components/RecentProjects'
+import Clients from '@/components/Clients'
+// import RecentProjects from '@/components/RecentProjects'
 // import Footer from '@/components/Footer'
 // import Hero from '@/components/Hero'
 import { FloatingNav } from '@/components/ui/FloatingNav'
@@ -13,7 +14,8 @@ export default function Home() {
 				<FloatingNav />
 				{/* <Hero /> */}
 				<BasicSkills />
-				<RecentProjects />
+				{/* <RecentProjects /> */}
+        <Clients />
 				{/* <Footer /> */}
 			</div>
 		</main>
