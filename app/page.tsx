@@ -1,5 +1,6 @@
 
 import { BackgroundBeams } from '@/components/BackgroundBeams'
+import Hero from '@/components/Hero'
 import { FloatingNav } from '@/components/ui/FloatingNav'
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <>
     <BackgroundBeams />
     <FloatingNav />
+    <Hero />
     <p>Hello World hello</p> 
     </>
   );
