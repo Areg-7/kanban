@@ -3,6 +3,6 @@
 export default function Home() {
   return (
     // <CustomKanban />
-    <p>Hello</p> 
+    <p>Hello World</p> 
   );
 }
