@@ -9,7 +9,7 @@ import { Link, BrowserRouter as Router } from 'react-router-dom'
 
 export function OrbitingCirclesDemo() {
 	const [notification, setNotification] = useState<string | null>(null)
-	const email = 'areg'
+	const email = 'areg.abrahamyan3@gmail.com'
 
 	const copyToClipboard = async () => {
 		try {
@@ -18,7 +18,7 @@ export function OrbitingCirclesDemo() {
 			setTimeout(() => setNotification(null), 3000)
 		} catch (err) {
 			console.error('Failed to copy!', err)
-			setNotification('Failed to copy email')
+			setNotification('Failed to copy email.')
 			setTimeout(() => setNotification(null), 3000)
 		}
 	}
@@ -30,13 +30,13 @@ export function OrbitingCirclesDemo() {
 	return (
 		<div className='relative top-16 flex h-[450px] w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
 			<Router>
-				<Link to='mailto:'>
+				<Link to='mailto:areg.abrahamyan3@gmail.com'>
 					<HoverBorderGradient className='p-2 px-3 hover-effect'>
 						<li
 							className='relative overflow-hidden block text-center grow p-0 text-indigo-300'
-							data-hover="Let is get in touch"
+							data-hover="Let's get in touch"
 						>
-							<span className='block'>Let is get in touch</span>
+							<span className='block'>Let's get in touch</span>
 						</li>
 					</HoverBorderGradient>
 				</Link>
