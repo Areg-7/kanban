@@ -2,30 +2,30 @@
 import OrbitingCircles from '@/components/ui/orbiting-circles'
 import { AnimatePresence, motion } from 'framer-motion'
 // import {&apos} from 'react/no-unescaped-entities'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { FiCheckSquare, FiX } from 'react-icons/fi'
 import { HoverBorderGradient } from './ui/hover-border-gradient'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 
 export function OrbitingCirclesDemo() {
-	const [notification, setNotification] = useState<string | null>(null)
-	const email = 'areg.abrahamyan3@gmail.com'
+	// const [notification, setNotification] = useState<string | null>(null)
+	// const email = 'areg.abrahamyan3@gmail.com'
 
-	const copyToClipboard = async () => {
-		try {
-			await navigator.clipboard.writeText(email)
-			setNotification('Email copied to clipboard')
-			setTimeout(() => setNotification(null), 3000)
-		} catch (err) {
-			console.error('Failed to copy', err)
-			setNotification('Failed to copy email')
-			setTimeout(() => setNotification(null), 3000)
-		}
-	}
+	// const copyToClipboard = async () => {
+	// 	try {
+	// 		await navigator.clipboard.writeText(email)
+	// 		setNotification('Email copied to clipboard')
+	// 		setTimeout(() => setNotification(null), 3000)
+	// 	} catch (err) {
+	// 		console.error('Failed to copy', err)
+	// 		setNotification('Failed to copy email')
+	// 		setTimeout(() => setNotification(null), 3000)
+	// 	}
+	// }
 
-	const deleteNotification = () => {
-		setNotification(null)
-	}
+	// const deleteNotification = () => {
+	// 	setNotification(null)
+	// }
 
 	return (
 		<div className='relative top-16 flex h-[450px] w-full flex-col items-center justify-center overflow-hidden rounded-lg'>
@@ -63,7 +63,7 @@ export function OrbitingCirclesDemo() {
 				radius={190}
 				duration={20}
 				reverse
-				onClick={copyToClipboard}
+				// onClick={copyToClipboard}
 			>
 				<a aria-label='Copy email to clipboard'>
 					<svg
@@ -113,7 +113,7 @@ export function OrbitingCirclesDemo() {
       </a> */}
 
 				<AnimatePresence>
-					{notification && (
+					{/* {notification && ( */}
 						<motion.div
 							initial={{ opacity: 0, y: -50, scale: 0.8 }}
 							animate={{
@@ -151,9 +151,9 @@ export function OrbitingCirclesDemo() {
 							<span className='pr-3'>
 								<FiCheckSquare />
 							</span>
-							<span>{notification}</span>
+							{/* <span>{notification}</span> */}
 							<motion.button
-								onClick={deleteNotification}
+								// onClick={deleteNotification}
 								//   whileHover={{ scale: 1.1, rotate: 10 }}
 								//   whileTap={{ scale: 0.9, rotate: -10 }}
 								transition={{
@@ -167,7 +167,7 @@ export function OrbitingCirclesDemo() {
 								<FiX />
 							</motion.button>
 						</motion.div>
-					)}
+					
 				</AnimatePresence>
 			</div>
 		</div>
