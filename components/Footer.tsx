@@ -7,7 +7,7 @@ const Footer = () => {
 			<h1 className='heading flex justify-center pt-10'>
 			<span className="pr-3"><Title title={'Contact'} /></span> with me
 			</h1>
-			<OrbitingCirclesDemo />
+			{/* <OrbitingCirclesDemo /> */}
 			
 			<div className='flex mt-16 md:flex-row flex-col justify-between items-center'>
 				<p className='uppercase tracking-widest text-xs text-center text-blue-100 max-w-80 font-montserrat'>
