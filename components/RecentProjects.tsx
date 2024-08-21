@@ -20,8 +20,8 @@ const RecentProjects = () => {
 						className='lg:min-h-[32rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]'
 						key={item.id}
 					>
-						<Router>
-							<Link to={item.link}>
+						{/* <Router> */}
+							{/* <Link to={item.link}> */}
 								<PinContainer title={item.link}>
 									<div className='relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden  mb-10'>
 										<div
@@ -72,8 +72,8 @@ const RecentProjects = () => {
 										</div>
 									</div>
 								</PinContainer>
-							</Link>
-						</Router>
+							{/* </Link> */}
+						{/* </Router> */}
 					</div>
 				))}
 			</div>
