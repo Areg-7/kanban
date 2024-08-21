@@ -16,7 +16,7 @@ export default function Home() {
 				<BasicSkills />
 				<RecentProjects />
 				<Clients />
-				{/* <Footer /> */}
+				<Footer />
 			</div>
 		</main>
 	)
