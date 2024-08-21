@@ -1,7 +1,7 @@
 'use client'
 import { projects } from '@/data'
 import { FaLocationArrow } from 'react-icons/fa6'
-import { Link, BrowserRouter as Router } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Title from './ui/BubbleText'
 import { PinContainer } from './ui/Pin'
 
@@ -20,8 +20,7 @@ const RecentProjects = () => {
 						className='lg:min-h-[32rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]'
 						key={item.id}
 					>
-						{/* <Router> */}
-							{/* <Link to={item.link}> */}
+							<Link to={item.link}>
 								<PinContainer title={item.link}>
 									<div className='relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden  mb-10'>
 										<div
@@ -72,8 +71,7 @@ const RecentProjects = () => {
 										</div>
 									</div>
 								</PinContainer>
-							{/* </Link> */}
-						{/* </Router> */}
+							</Link>
 					</div>
 				))}
 			</div>
