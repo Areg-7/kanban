@@ -1,15 +1,10 @@
 // "use client";
 
-import Page from '@/components/Ass'
 import CategoryList from "@/components/CategoryList";
-import Footer from '@/components/Footer'
 import ProductList from "@/components/ProductList";
 import Skeleton from "@/components/Skeleton";
 import Slider from "@/components/Slider";
-import { WixClientContext } from "@/context/wixContext";
-import { useWixClient } from "@/hooks/useWixClient";
-import { wixClientServer } from "@/lib/wixClientServer";
-import { Suspense, useContext, useEffect } from "react";
+import { Suspense } from "react";
 
 const HomePage = async () => {
 

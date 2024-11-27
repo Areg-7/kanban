@@ -1,12 +1,10 @@
 import CustomCursor from '@/components/CustomCursor'
 import Footer from '@/components/Footer'
-// import Navbar from '@/components/Navbar'
 import { WixClientContextProvider } from '@/context/wixContext'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.scss'
 import { ThemeProvider } from './provider'
-// import { FloatingNav } from '@/components/FloatingNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
