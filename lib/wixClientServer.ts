@@ -40,7 +40,7 @@ import { cookies } from "next/headers";
 import { members } from "@wix/members";
 
 export const wixClientServer = async () => {
-  let refreshToken = null;
+  let refreshToken: any = null;
 
   try {
     const cookieStore = cookies();
@@ -71,18 +71,15 @@ export const wixClientServer = async () => {
       },
       auth: OAuthStrategy({
         clientId: process.env.NEXT_PUBLIC_WIX_CLIENT_ID!,
-        tokens: refreshToken
-          ? {
-              refreshToken,
-              accessToken: { value: "", expiresAt: 0 }, // Access token will be refreshed
-            }
-          : null, // No tokens available; unauthenticated
+        // Use spread syntax to conditionally include the tokens property
+        ...(refreshToken && {
+          tokens: {
+            refreshToken,
+            accessToken: { value: "", expiresAt: 0 }, // Access token will be refreshed
+          },
+        }),
       }),
     });
-
-    if (!wixClient) {
-      throw new Error("Failed to create Wix client instance.");
-    }
 
     return wixClient;
   } catch (error) {
