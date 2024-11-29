@@ -151,7 +151,6 @@
 
 
 
-
 import { wixClientServer } from "@/lib/wixClientServer";
 import { products } from "@wix/stores";
 import Image from "next/image";
@@ -171,68 +170,97 @@ const ProductList = async ({
   searchParams?: any;
 }) => {
   const wixClient = await wixClientServer();
+  let res: any = { items: [] };  // Initialize with an empty array as fallback
+  let error = null;  // Variable to store the error if it occurs
 
-  const productQuery = wixClient.products
-    .queryProducts()
-    .startsWith("name", searchParams?.name || "")
-    .eq("collectionIds", categoryId)
-    .hasSome(
-      "productType",
-      searchParams?.type ? [searchParams.type] : ["physical", "digital"]
-    )
-    .gt("priceData.price", searchParams?.min || 0)
-    .lt("priceData.price", searchParams?.max || 999999)
-    .limit(limit || PRODUCT_PER_PAGE)
-    .skip(
-      searchParams?.page
-        ? parseInt(searchParams.page) * (limit || PRODUCT_PER_PAGE)
-        : 0
-    );
+  try {
+    const productQuery = wixClient.products
+      .queryProducts()
+      .startsWith("name", searchParams?.name || "")
+      .eq("collectionIds", categoryId)
+      .hasSome(
+        "productType",
+        searchParams?.type ? [searchParams.type] : ["physical", "digital"]
+      )
+      .gt("priceData.price", searchParams?.min || 0)
+      .lt("priceData.price", searchParams?.max || 999999)
+      .limit(limit || PRODUCT_PER_PAGE)
+      .skip(
+        searchParams?.page
+          ? parseInt(searchParams.page) * (limit || PRODUCT_PER_PAGE)
+          : 0
+      );
 
-  if (searchParams?.sort) {
-    const [sortType, sortBy] = searchParams.sort.split(" ");
-    if (sortType === "asc") productQuery.ascending(sortBy);
-    if (sortType === "desc") productQuery.descending(sortBy);
+    if (searchParams?.sort) {
+      const [sortType, sortBy] = searchParams.sort.split(" ");
+      if (sortType === "asc") {
+        productQuery.ascending(sortBy);
+      }
+      if (sortType === "desc") {
+        productQuery.descending(sortBy);
+      }
+    }
+
+    // Try to fetch the data
+    res = await productQuery.find();
+  } catch (err) {
+    error = err;  // Catch any error and store it
+    console.error("Error fetching products:", err);  // Log the error for debugging
   }
 
-  const res = await productQuery.find();
+  // Display error message if error occurred
+  if (error) {
+    return (
+      <div className="error-message text-center text-red-600">
+        <h2 className="text-xl">Oops, something went wrong!</h2>
+        <p className="mt-4">We couldn't fetch the products at the moment. Please try again later.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-12 flex gap-x-8 gap-y-16 justify-between flex-wrap">
-      {res.items.map((product: products.Product) => {
-        const linkSection = product.additionalInfoSections?.find(
-          (section: any) => section.title === "link"
-        )?.description;
-
-        const sanitizedHref = (() => {
-          if (!linkSection) return "#";
-          const sanitizedText = DOMPurify.sanitize(linkSection, { ALLOWED_TAGS: [], ALLOWED_ATTR: [] });
-          try {
-            return new URL(sanitizedText).href;
-          } catch {
-            return "#";
-          }
-        })();
-
-        return (
+      {res.items.length > 0 ? (
+        res.items.map((product: products.Product) => (
           <Link
+            className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]"
             key={product._id}
-            href={sanitizedHref}
+            href={(() => {
+              // Safely access additionalInfoSections using optional chaining
+              const linkDescription = product.additionalInfoSections?.find(
+                (section: any) => section.title === "link"
+              )?.description;
+
+              if (!linkDescription) return "#"; // Default fallback URL
+
+              // Sanitize and remove HTML tags
+              const sanitizedText = DOMPurify.sanitize(linkDescription ?? "", {
+                ALLOWED_TAGS: [], // Remove all tags
+                ALLOWED_ATTR: [], // Remove all attributes
+              }).trim();
+
+              // Check if sanitized text is a valid URL
+              try {
+                const url = new URL(sanitizedText);
+                return url.href; // Return as absolute URL if valid
+              } catch (error) {
+                return "#"; // Fallback for invalid URLs
+              }
+            })()}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]"
           >
             <div className="relative w-full h-80">
               <Image
                 src={product.media?.mainMedia?.image?.url || "/product.png"}
-                alt='asa'
+                alt=""
                 fill
                 sizes="25vw"
-                className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity ease duration-500"
+                className="absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-500"
               />
-              {product.media?.items?.[1]?.image?.url && (
+              {product.media?.items && (
                 <Image
-                  src={product.media.items[1].image.url}
+                  src={product.media?.items[1]?.image?.url || "/product.png"}
                   alt=""
                   fill
                   sizes="25vw"
@@ -242,31 +270,33 @@ const ProductList = async ({
             </div>
             <div className="flex justify-between">
               <span className="font-medium">{product.name}</span>
-              <span className="font-semibold">${product.price?.price || "N/A"}</span>
+              <span className="font-semibold">${product.price?.price}</span>
             </div>
-            {product.additionalInfoSections && (
-              <div
-                className="text-sm text-gray-500"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    product.additionalInfoSections.find(
-                      (section: any) => section.title === "shortDesc"
-                    )?.description || ""
-                  ),
-                }}
-              ></div>
-            )}
+            <div
+              className="text-sm text-gray-500"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(
+                  product.additionalInfoSections?.find(
+                    (section: any) => section.title === "shortDesc"
+                  )?.description || ""
+                ),
+              }}
+            ></div>
             <button className="hover-effect rounded-2xl ring-1 ring-lama text-lama w-max py-2 px-4 text-xs hover:bg-lama hover:text-white">
-              Buy now
+              <span className="relative overflow-hidden block text-center grow p-0">
+                <span className="block">Buy now</span>
+              </span>
             </button>
           </Link>
-        );
-      })}
+        ))
+      ) : (
+        <p>No products found. Please adjust your filters or try again later.</p>
+      )}
       {searchParams?.cat || searchParams?.name ? (
         <Pagination
           currentPage={res.currentPage || 0}
-          hasPrev={typeof res.hasPrev === "function" ? res.hasPrev() : false}
-          hasNext={typeof res.hasNext === "function" ? res.hasNext() : false}
+          hasPrev={res.hasPrev()}
+          hasNext={res.hasNext()}
         />
       ) : null}
     </div>
