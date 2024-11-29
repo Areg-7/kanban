@@ -152,23 +152,3 @@ export default ProductList;
 
 
 
-
-
-// {product.additionalInfoSections && (
-//   <Link
-//     className="text-sm text-gray-500"
-//     href={
-//       product.additionalInfoSections.find(
-//         (section: any) => section.title === "shortDesc"
-//       )?.description
-//         ? DOMPurify.sanitize(
-//             product.additionalInfoSections.find(
-//               (section: any) => section.title === "shortDesc"
-//             )?.description || ""
-//           )
-//         : "#"
-//     }
-//     target="_blank"
-//     rel="noopener noreferrer"
-//   >
-// )}
