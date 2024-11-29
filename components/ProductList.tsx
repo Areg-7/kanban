@@ -212,8 +212,8 @@ const ProductList = async ({
   if (error) {
     return (
       <div className="error-message text-center text-red-600">
-        <h2 className="text-xl">Oops, something went wrong!</h2>
-        <p className="mt-4">We couldn't fetch the products at the moment. Please try again later.</p>
+        <h2 className="text-xl">Oops something went wrong!</h2>
+        <p className="mt-4">We couldn&apos;t fetch the products at the moment. Please try again later.</p>
       </div>
     );
   }
