@@ -52,11 +52,13 @@ export const wixClientServer = async () => {
       console.warn("Refresh token cookie is missing.");
     }
   } catch (error) {
-    console.error("Failed to parse refresh token cookie:", error);
+    console.error("Error parsing refresh token cookie:", error);
   }
 
   if (!process.env.NEXT_PUBLIC_WIX_CLIENT_ID) {
-    throw new Error("NEXT_PUBLIC_WIX_CLIENT_ID is not defined in environment variables.");
+    const errorMessage = "NEXT_PUBLIC_WIX_CLIENT_ID is not defined in environment variables.";
+    console.error(errorMessage);
+    throw new Error(errorMessage);
   }
 
   try {
@@ -72,15 +74,23 @@ export const wixClientServer = async () => {
         tokens: refreshToken
           ? {
               refreshToken,
-              accessToken: { value: "", expiresAt: 0 },
+              accessToken: { value: "", expiresAt: 0 }, // Access token will be refreshed
             }
-          : null,
+          : null, // No tokens available; unauthenticated
       }),
     });
+
+    if (!wixClient) {
+      throw new Error("Failed to create Wix client instance.");
+    }
 
     return wixClient;
   } catch (error) {
     console.error("Failed to initialize Wix client:", error);
-    throw error;
+
+    // Optionally rethrow the error to propagate it further
+    throw new Error(
+      "Wix client initialization error. Please ensure tokens and configuration are correct."
+    );
   }
 };
