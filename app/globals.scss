@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Palanquin:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@100;200;300;400;500;600;700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--primary: #f1f1f1;
+		--secondary: rgba(31, 209, 253, 0.4);
+		--tertiary: rgba(31, 209, 253, 0.6);
+		--background: rgb(255, 255, 255);
+		--foreground: rgb(9, 9, 11);
+
+		--card: rgb(255, 255, 255);
+		--card-foreground: rgb(9, 9, 11);
+
+		--popover: rgb(255, 255, 255);
+		--popover-foreground: rgb(10, 10, 10)
+
+		--primary: rgb(24, 24, 27);
+		--primary-foreground: rgb(250, 250, 250);
+
+		--secondary: rgb(244, 244, 245);
+		--secondary-foreground: rgb(24, 24, 27);
+
+		--muted: rgb(244, 244, 245);
+		--muted-foreground: rgb(113, 113, 122);
+
+		--accent: rgb(244, 244, 245);
+		--accent-foreground: rgb(24, 24, 27);
+
+		--destructive: rgb(239, 68, 68);
+		--destructive-foreground: rgb(250, 250, 250);
+
+		--border: rgb(228, 228, 231);
+		--input: rgb(228, 228, 231);
+		--ring: rgb(9, 9, 11);
+
+		--radius: 0.5rem;
+	}
+
+	.dark {
+		--background: rgb(9, 9, 11);
+		--foreground: rgb(250, 250, 250);
+
+		--card: rgb(9, 9, 11);
+		--card-foreground: rgb(250, 250, 250);
+
+		--popover: rgb(9, 9, 11);
+		--popover-foreground: rgb(250, 250, 250);
+
+		--primary: rgb(250, 250, 250);
+		--primary-foreground: rgb(24, 24, 27);
+
+		--secondary: rgb(39, 39, 42);
+		--secondary-foreground: rgb(250, 250, 250);
+
+		--muted: rgb(39, 39, 42);
+		--muted-foreground: rgb(161, 161, 170);
+
+		--accent: rgb(39, 39, 42);
+		--accent-foreground: rgb(250, 250, 250);
+
+		--destructive: rgb(127, 29, 29);
+		--destructive-foreground: rgb(250, 250, 250);
+
+		--border: rgb(39, 39, 42);
+		--input: rgb(39, 39, 42);
+		--ring: rgb(212, 212, 216);
+	}
+
+	.light {
+		--background: rgb(230, 229, 224);
+		--foreground: rgb(250, 250, 250);
+
+		--card: rgb(9, 9, 11);
+		--card-foreground: rgb(250, 250, 250);
+
+		--popover: rgb(9, 9, 11);
+		--popover-foreground: rgb(250, 250, 250);
+
+		--primary: rgb(250, 250, 250);
+		--primary-foreground: rgb(24, 24, 27);
+
+		--secondary: rgb(39, 39, 42);
+		--secondary-foreground: rgb(250, 250, 250);
+
+		--muted: rgb(39, 39, 42);
+		--muted-foreground: rgb(161, 161, 170);
+
+		--accent: rgb(39, 39, 42);
+		--accent-foreground: rgb(250, 250, 250);
+
+		--destructive: hsl(0 62.8% 30.6%);
+		--destructive-foreground: rgb(250, 250, 250);
+
+		--border: rgb(39, 39, 42);
+		--input: rgb(39, 39, 42);
+		--ring: hsl(240 4.9% 83.9%);
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border !scroll-smooth;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+	button {
+		@apply active:outline-none;
+	}
+}
+
+@layer utilities {
+	.heading {
+		@apply font-bold text-4xl md:text-5xl text-center;
+	}
+
+	.black-gradient {
+		background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+	}
+}
+
+/* Custom Cursor */
+.cursor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	border: 2px solid rgb(65, 55, 124);
+	border-radius: 50%;
+	mix-blend-mode: difference;
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	z-index: 999999 !important;
+	backdrop-filter: blur(1px);
+	background-color: rgb(80, 68, 147);
+	transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cursor .pointer {
+	display: none;
+	opacity: 0 !important;
+	transition: width 0.2s ease-in-out, height 0.2s ease-in-out,
+		opacity 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 768px) {
+	.cursor {
+		display: none;
+		width: 0;
+		height: 0;
+		transition: width 0.2s ease-in-out, height 0.2s ease-in-out,
+			opacity 0.2s ease-in-out;
+	}
+}
+
+/* custom scrollbar */
+body::-webkit-scrollbar {
+	width: 1.2rem;
+}
+
+body::-webkit-scrollbar-thumb {
+	height: 4rem;
+	border-radius: 2rem;
+	border: 4px solid transparent;
+	background-clip: content-box;
+	background-color: #4d4d4b;
+}
+body::-webkit-scrollbar-thumb:hover {
+	background-color: #ffffff9c;
+}
+
+body::-webkit-scrollbar-track {
+	background-color: --background;
+}
+
+/* MENU */
+
+.hover-effect {
+	li {
+		animation-duration: 1s;
+		animation-fill-mode: both;
+
+		span {
+			transition: transform 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		}
+		&:after {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			content: attr(data-hover);
+			display: inline;
+			text-align: center;
+			transition: top 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+		}
+
+		&:hover {
+			color: rgba(255, 255, 255, 0.5);
+		}
+		&:hover span {
+			color: rgba(255, 255, 255, 0.5);
+			transform: translateY(-100%);
+		}
+		&:hover:after {
+			top: 0;
+		}
+	}
+}
