@@ -1,4 +1,4 @@
-import { CustomKanban } from '@/components/Footer'
+import { CustomKanban } from '@/components/CustomKanban'
 
 export default function Home() {
 	return (

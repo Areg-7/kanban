@@ -1,5 +1,11 @@
 "use client"
-import React, { useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useState,
+  DragEvent,
+  FormEvent,
+} from "react";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { FaFire } from "react-icons/fa";
@@ -50,14 +56,28 @@ const Board = () => {
   );
 };
 
-const Column = ({ title, headingColor, cards, column, setCards }) => {
+type ColumnProps = {
+  title: string;
+  headingColor: string;
+  cards: CardType[];
+  column: ColumnType;
+  setCards: Dispatch<SetStateAction<CardType[]>>;
+};
+
+const Column = ({
+  title,
+  headingColor,
+  cards,
+  column,
+  setCards,
+}: ColumnProps) => {
   const [active, setActive] = useState(false);
 
-  const handleDragStart = (e, card) => {
+  const handleDragStart = (e: DragEvent, card: CardType) => {
     e.dataTransfer.setData("cardId", card.id);
   };
 
-  const handleDragEnd = (e) => {
+  const handleDragEnd = (e: DragEvent) => {
     const cardId = e.dataTransfer.getData("cardId");
 
     setActive(false);
@@ -92,14 +112,14 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     }
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
     highlightIndicator(e);
 
     setActive(true);
   };
 
-  const clearHighlights = (els) => {
+  const clearHighlights = (els?: HTMLElement[]) => {
     const indicators = els || getIndicators();
 
     indicators.forEach((i) => {
@@ -107,7 +127,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     });
   };
 
-  const highlightIndicator = (e) => {
+  const highlightIndicator = (e: DragEvent) => {
     const indicators = getIndicators();
 
     clearHighlights(indicators);
@@ -117,7 +137,7 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     el.element.style.opacity = "1";
   };
 
-  const getNearestIndicator = (e, indicators) => {
+  const getNearestIndicator = (e: DragEvent, indicators: HTMLElement[]) => {
     const DISTANCE_OFFSET = 50;
 
     const el = indicators.reduce(
@@ -142,7 +162,11 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
   };
 
   const getIndicators = () => {
-    return Array.from(document.querySelectorAll(`[data-column="${column}"]`));
+    return Array.from(
+      document.querySelectorAll(
+        `[data-column="${column}"]`
+      ) as unknown as HTMLElement[]
+    );
   };
 
   const handleDragLeave = () => {
@@ -178,7 +202,11 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
   );
 };
 
-const Card = ({ title, id, column, handleDragStart }) => {
+type CardProps = CardType & {
+  handleDragStart: Function;
+};
+
+const Card = ({ title, id, column, handleDragStart }: CardProps) => {
   return (
     <>
       <DropIndicator beforeId={id} column={column} />
@@ -195,7 +223,12 @@ const Card = ({ title, id, column, handleDragStart }) => {
   );
 };
 
-const DropIndicator = ({ beforeId, column }) => {
+type DropIndicatorProps = {
+  beforeId: string | null;
+  column: string;
+};
+
+const DropIndicator = ({ beforeId, column }: DropIndicatorProps) => {
   return (
     <div
       data-before={beforeId || "-1"}
@@ -205,10 +238,14 @@ const DropIndicator = ({ beforeId, column }) => {
   );
 };
 
-const BurnBarrel = ({ setCards }) => {
+const BurnBarrel = ({
+  setCards,
+}: {
+  setCards: Dispatch<SetStateAction<CardType[]>>;
+}) => {
   const [active, setActive] = useState(false);
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
     setActive(true);
   };
@@ -217,7 +254,7 @@ const BurnBarrel = ({ setCards }) => {
     setActive(false);
   };
 
-  const handleDragEnd = (e) => {
+  const handleDragEnd = (e: DragEvent) => {
     const cardId = e.dataTransfer.getData("cardId");
 
     setCards((pv) => pv.filter((c) => c.id !== cardId));
@@ -241,11 +278,16 @@ const BurnBarrel = ({ setCards }) => {
   );
 };
 
-const AddCard = ({ column, setCards }) => {
+type AddCardProps = {
+  column: ColumnType;
+  setCards: Dispatch<SetStateAction<CardType[]>>;
+};
+
+const AddCard = ({ column, setCards }: AddCardProps) => {
   const [text, setText] = useState("");
   const [adding, setAdding] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!text.trim().length) return;
@@ -301,7 +343,15 @@ const AddCard = ({ column, setCards }) => {
   );
 };
 
-const DEFAULT_CARDS = [
+type ColumnType = "backlog" | "todo" | "doing" | "done";
+
+type CardType = {
+  title: string;
+  id: string;
+  column: ColumnType;
+};
+
+const DEFAULT_CARDS: CardType[] = [
   // BACKLOG
   { title: "Look into render bug in dashboard", id: "1", column: "backlog" },
   { title: "SOX compliance checklist", id: "2", column: "backlog" },
